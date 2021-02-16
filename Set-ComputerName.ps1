@@ -1,4 +1,44 @@
 #Requires -RunAsAdministrator
+<#
+    .SYNOPSIS
+    Sets the computer name to the serial number with a prefix, suffix, or both.
+
+    .DESCRIPTION
+    Sets the computer name to the serial number with a prefix, suffix, or both.
+    Trims the name down to 15 characters to comply with Windows requirements.
+    Will preserve the old name to a registry location if using parameters.
+
+    .PARAMETER Prefix
+    Adds the string specified to the front of the name.
+
+    .PARAMETER Suffix
+    Adds the string specified to the end of the name.
+
+    .PARAMETER Registry
+    Location in registry to write the old name information.
+
+    .PARAMETER KeepOldName
+    Switch that preserves the old name if set.
+
+    .INPUTS
+    Accepts inputs from pipeline that are Prefix or Suffix.
+
+    .OUTPUTS
+    None.
+
+    .EXAMPLE
+    Set-ComputerName -Prefix 'ORG'
+
+    .EXAMPLE
+    Set-ComputerName -Prefix 'ORG-' -Registry 'HKLM:\SOFTWARE\ORG\Inventory' -KeepOldName
+
+    .EXAMPLE
+    Set-ComputerName -Suffix '-ORG'
+
+    .LINK
+    Rename-Computer
+#>
+
 
 [CmdletBinding()]
 param (
