@@ -11,6 +11,7 @@ Sets the computer name to the serial number with a prefix, suffix, or both.
 Sets the computer name to the serial number with a prefix, suffix, or both.  
 Trims the name down to 15 characters to comply with Windows requirements.  
 Will preserve the old name to a registry location if using parameters.  
+To use you must first import the module or copy to the module directory.  
 
 ## Parameters
 * Prefix
