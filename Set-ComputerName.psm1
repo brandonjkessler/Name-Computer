@@ -33,7 +33,7 @@
     Set-ComputerName -Prefix 'ORG'
 
     .EXAMPLE
-    Set-ComputerName -Prefix 'ORG-' -Registry 'HKLM:\SOFTWARE\ORG\Inventory' -KeepOldName
+    Set-ComputerName -Prefix 'ORG-' -RegistryPath 'HKLM:\SOFTWARE\ORG' -RegistryKey 'Inventory' -KeepOldName
 
     .EXAMPLE
     Set-ComputerName -Suffix '-ORG'
