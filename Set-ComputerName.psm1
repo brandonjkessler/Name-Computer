@@ -14,8 +14,11 @@
     .PARAMETER Suffix
     Adds the string specified to the end of the name.
 
-    .PARAMETER Registry
+    .PARAMETER RegistryPath
     Location in registry to write the old name information.
+    
+    .PARAMETER RegistryKey
+    Key in registry to write the old name information.
 
     .PARAMETER KeepOldName
     Switch that preserves the old name if set.
@@ -50,9 +53,14 @@ param (
     HelpMessage='Adds a set of characters after the Serial Number.')]
     [String]
     $Suffix,
-    [Parameter(HelpMessage='Sets a location in registry.')]
+    [Parameter(ValueFromPipelineByPropertyName,
+    HelpMessage='Sets a location in registry.')]
     [string]
-    $Registry = 'HKLM:\SOFTWARE\CustomInv',
+    $RegistryPath = 'HKLM:\SOFTWARE',
+    [Parameter(ValueFromPipelineByPropertyName,
+    HelpMessage='Sets a location in registry.')]
+    [string]
+    $RegistryKey = 'CustomInv',
     [Parameter(HelpMessage='Write old name to a registry file.')]
     [switch]
     $KeepOldName
@@ -61,6 +69,7 @@ param (
 
 $SystemEnc = Get-CimInstance -Classname Win32_SystemEnclosure
 $SN = $SystemEnc.SerialNumber
+$Registry = "$RegistryPath\$RegistryKey"
 
 $NewName = "$SN"
 
@@ -75,7 +84,7 @@ if($null -ne $Suffix){
 ## Test for Matching name
 if(($env:COMPUTERNAME) -notmatch $NewName){
     ## test for Reg path and create it if needed
-    if(!(Test-Path -Path $Registry)){
+    if((Test-Path -Path $Registry) -ne $true){
         New-Item -Path $Registry
     }
 
