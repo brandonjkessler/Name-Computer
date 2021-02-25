@@ -97,20 +97,29 @@ Function Set-ComputerName{
         }
         
         ## Testing $NewName Length
-        if($NewName.length() -gt 15){
+        if($NewName.length -gt 15){
             $NewName = $NewName.Substring(0,15)
         }
         # Test if in TS Env
         try{
             $TSEnv = New-Object -COMObject Microsoft.SMS.TSEnvironment
-            $TSEnv.Value("OSDComputerName") = "$newPCName"
+            $TSEnv.Value("OSDComputerName") = "$NewName"
         }catch{
-            Write-host "New Name will be $newPCName"
-            Rename-Computer -NewName $newPCName -Verbose
+            Write-host "New Name will be $NewName"
+            Rename-Computer -NewName $NewName -Verbose
         }  
     }
     
     Return $NewName
+    }
     
-}
+    function Set-ComputerDescription{
+    
+        param(
+            [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
+            [string]
+            $Description
+        )
+        Get-CimInstance -ClassName Win32_OperatingSystem | Set-CIMInstance -Property @{Description = "$Description"} 
+    }
     
