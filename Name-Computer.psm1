@@ -100,12 +100,17 @@ Function Set-ComputerName{
         if($NewName.length() -gt 15){
             $NewName = $NewName.Substring(0,15)
         }
-        ## Renaming the PC
-        Write-Output "Changing computer name to $NewName"
-        Rename-Computer -NewName $NewName -Verbose
+        # Test if in TS Env
+        try{
+            $TSEnv = New-Object -COMObject Microsoft.SMS.TSEnvironment
+            $TSEnv.Value("OSDComputerName") = "$newPCName"
+        }catch{
+            Write-host "New Name will be $newPCName"
+            Rename-Computer -NewName $newPCName -Verbose
+        }  
     }
     
     Return $NewName
     
-    }
+}
     
