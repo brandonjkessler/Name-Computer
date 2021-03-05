@@ -1,4 +1,4 @@
-# Set-ComputerName
+# Name-Computer
 
 ## Prerequisites
 * Requires Elevated Privileges to run.
@@ -11,7 +11,9 @@ Sets the computer name to the serial number with a prefix, suffix, or both.
 Sets the computer name to the serial number with a prefix, suffix, or both.  
 Trims the name down to 15 characters to comply with Windows requirements.  
 Will preserve the old name to a registry location if using parameters.  
-To use you must first import the module or copy to the module directory.  
+To use you must first import the module or copy to the module directory. 
+
+Also has a function for setting the computer's local description. 
 
 ## Parameters
 * Prefix
@@ -32,4 +34,6 @@ To use you must first import the module or copy to the module directory.
     Set-ComputerName -Prefix 'ORG-' -RegistryPath 'HKLM:\SOFTWARE\ORG' -RegistryKey 'Inventory' -KeepOldName
 
     Set-ComputerName -Suffix '-ORG'
+    
+    Set-ComputerDescription -Description "Description"
 
